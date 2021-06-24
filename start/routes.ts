@@ -32,11 +32,11 @@ Route.group(() => {
     Route.resource('releases', 'ReleasesController').apiOnly()
   }).middleware('auth:api')
 
-  Route.get('release/macos', async () => {
+  Route.get('/release/macos', async () => {
     const macos = await Release.query().where('terminal', 'macos').orderBy('id', 'desc').first()
     return macos?.url
   })
-  Route.get('release/windows', async () => {
+  Route.get('/release/windows', async () => {
     const windows = await Release.query().where('terminal', 'windows').orderBy('id', 'desc').first()
     return windows?.url
   })
