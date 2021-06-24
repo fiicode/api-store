@@ -28,10 +28,6 @@ Route.group(() => {
  * ROUTE FOR fstore APP
  */
 Route.group(() => {
-  Route.get('/release/macos', async () => {
-    const macos = await Release.query().where('terminal', 'macos').orderBy('id', 'desc').first()
-    return macos?.url
-  })
   Route.get('/release/windows', async () => {
     const windows = await Release.query().where('terminal', 'windows').orderBy('id', 'desc').first()
     return windows?.url
@@ -41,3 +37,8 @@ Route.group(() => {
     Route.resource('releases', 'ReleasesController').apiOnly()
   }).middleware('auth:api')
 }).prefix('fstore')
+
+Route.get('/release/macos', async () => {
+  const macos = await Release.query().where('terminal', 'macos').orderBy('id', 'desc').first()
+  return macos?.url
+})
