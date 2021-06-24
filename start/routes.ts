@@ -1,4 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route'
+import Release from 'App/Models/Release'
 
 Route.get('/', async () => {
   return { api: "API tokens", route: '/', group: 'fiicode © ' + (new Date().getFullYear())}
@@ -9,14 +10,16 @@ Route.get('/', async () => {
 Route.group(() => {
   Route.post('/login', 'Auth/AuthController.login')
   Route.post('/register', 'Auth/AuthController.register')
-  Route.get('/me', async ({auth}) => {
-    return auth
-  }).middleware('auth')
-  Route.post('/logout', async ({ auth }) => {
-    await auth.use('api').revoke()
-    return {
-      revoked: true
-    }
+  Route.group(() => {
+    Route.get('/me', async ({auth}) => {
+      return auth
+    }).middleware('auth')
+    Route.post('/logout', async ({ auth }) => {
+      await auth.use('api').revoke()
+      return {
+        revoked: true
+      }
+    })
   }).middleware('auth')
 }).prefix('access')
 
@@ -26,5 +29,15 @@ Route.group(() => {
 Route.group(() => {
   Route.group(() => {
     Route.resource('items', 'ItemsController').apiOnly()
-  }).prefix('fstore')
-}).middleware('auth:api')
+    Route.resource('releases', 'ReleasesController').apiOnly()
+  }).middleware('auth:api')
+
+  Route.get('release/macos', async () => {
+    const macos = await Release.query().where('terminal', 'macos').orderBy('id', 'desc').first()
+    return macos?.url
+  })
+  Route.get('release/windows', async () => {
+    const windows = await Release.query().where('terminal', 'windows').orderBy('id', 'desc').first()
+    return windows?.url
+  })
+}).prefix('fstore')
