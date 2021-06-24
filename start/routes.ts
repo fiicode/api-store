@@ -4,6 +4,7 @@ import Release from 'App/Models/Release'
 Route.get('/', async () => {
   return { api: "API tokens", route: '/', group: 'fiicode © ' + (new Date().getFullYear())}
 })
+
 /**
  * ROUTE FOR AUTHENTICATION
  */

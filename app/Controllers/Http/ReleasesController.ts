@@ -13,7 +13,11 @@ export default class ReleasesController {
     const version = request.input('version')
     const url = request.input('url')
     const terminal = request.input('terminal')
-    Release.firstOrCreate({version: version, url: url, terminal: terminal})
+    Release.firstOrCreate({
+      version: version,
+      url: url,
+      terminal: terminal
+    })
 
     return response.created({"created": true})
   }
