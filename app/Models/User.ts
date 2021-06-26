@@ -4,7 +4,10 @@ import {
   column,
   beforeSave,
   BaseModel,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
+import Customer from './Customer'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -25,10 +28,16 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @column.dateTime({ autoCreate: true })
+  public deletedAt: DateTime
+
   @beforeSave()
   public static async hashPassword (user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasMany(() => Customer)
+  public customers: HasMany<typeof Customer>
 }
