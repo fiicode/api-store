@@ -1,4 +1,3 @@
-import { afterCreate } from '@ioc:Adonis/Lucid/Orm'
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class Users extends BaseSchema {
