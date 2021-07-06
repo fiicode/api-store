@@ -15,7 +15,6 @@ export default class UsersSchema extends BaseSchema {
        */
       table.dateTime('created_at', { useTz: true })
       table.dateTime('updated_at', { useTz: true })
-      table.dateTime('deleted_at', { useTz: true })
     })
   }
 

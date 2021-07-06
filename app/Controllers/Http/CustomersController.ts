@@ -29,7 +29,13 @@ export default class CustomersController {
   public async edit ({}: HttpContextContract) {
   }
 
-  public async update ({}: HttpContextContract) {
+  public async update ({ params, request, response}: HttpContextContract) {
+    const customer = await Customer.findOrFail(params.id);
+    customer.name = request.input('name');
+    customer.phone = request.input('phone');
+    customer.save();
+
+    return response.created({"updated": true});
   }
 
   public async destroy ({}: HttpContextContract) {
