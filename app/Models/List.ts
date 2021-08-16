@@ -1,31 +1,35 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Item from './Item'
 import User from './User'
 
-export default class Customer extends BaseModel {
+export default class List extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
+  public itemId: number
+
+  @belongsTo(() => Item)
+  public item: BelongsTo<typeof Item>
 
   @column()
-  public phone: string
+  public quantity: number
 
   @column()
-  public email: string
+  public purchaseprice: number
 
   @column()
-  public avatar: string
+  public minselling: number
 
   @column()
-  public description: string
+  public maxselling: number
 
   @column()
   public userId: number
 
   @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
+    public user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -35,4 +39,5 @@ export default class Customer extends BaseModel {
 
   @column.dateTime({ autoCreate: false })
   public deletedAt: DateTime
+
 }

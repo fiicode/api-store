@@ -8,6 +8,7 @@ import {
   HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Customer from './Customer'
+import Order from './Order'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -40,4 +41,7 @@ export default class User extends BaseModel {
 
   @hasMany(() => Customer)
   public customers: HasMany<typeof Customer>
+
+  @hasMany(() => Order)
+  public orders: HasMany<typeof Order>
 }

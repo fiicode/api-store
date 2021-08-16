@@ -31,6 +31,7 @@ Route.group(() => {
     Route.resource('items', 'ItemsController').apiOnly()
     Route.resource('releases', 'ReleasesController').apiOnly()
     Route.resource('customers', 'CustomersController').apiOnly()
+    Route.resource('orders', 'OrdersController').apiOnly()
   }).middleware('auth:api')
 
   Route.get('/release/macos', async () => {
