@@ -1,17 +1,20 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Items extends BaseSchema {
-  protected tableName = 'items'
+export default class Deliverers extends BaseSchema {
+  protected tableName = 'deliverers'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('name').notNullable()
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
        */
       table.dateTime('created_at', { useTz: true })
       table.dateTime('updated_at', { useTz: true })
+      table.dateTime('deleted_at', { useTz: true })
     })
   }
 
