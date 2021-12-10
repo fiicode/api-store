@@ -1,17 +1,17 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Lists extends BaseSchema {
-  protected tableName = 'lists'
+export default class Options extends BaseSchema {
+  protected tableName = 'options'
 
   public async up () {
     this.schema.table(this.tableName, (table) => {
-      table.dateTime('schedule').nullable().after('created_at')
+      table.boolean('isfield').defaultTo(0).after('name')
     })
   }
 
   public async down () {
     this.schema.table(this.tableName, (table) => {
-      table.dropColumn('schedule')
+      table.dropColumn('isfield')
     })
   }
 }
